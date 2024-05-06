@@ -70,7 +70,8 @@ function App() {
           <div className={styles.list}>
             <div className={styles.element}>
               <img src={imageUrl} alt="No Avatar" style={{ width: '50px', height: '50px' }}/>
-              <div>{user.name}<br></br>{user.surname} {user.date.toDate().toLocaleDateString('en-GB', { year: 'numeric', month: 'numeric', day: 'numeric' })}</div>
+              <div>{user.name}<br></br>{user.surname}</div>
+              <div>{user.date.toDate().toLocaleDateString('en-GB', { year: 'numeric', month: 'numeric', day: 'numeric' })}</div>
             </div>
           </div>
         ))}
