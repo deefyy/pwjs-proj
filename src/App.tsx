@@ -4,6 +4,13 @@ import { collection, getDocs, addDoc} from "firebase/firestore";
 import { db } from './firebase-config.ts'
 import { useEffect, useState } from "react";
 
+interface User {
+  name: string;
+  surname: string;
+  date: string;
+  avatar: string;
+}
+
 function App() {
 
   const [users, setUsers] = useState([])
@@ -16,7 +23,7 @@ function App() {
 
     const querySnapshot = await getDocs(collection(db, "users"));
 
-    const data = []
+    const data: User[] = [];
     querySnapshot.forEach((doc) => {
       data.push({
         id: doc.id,
@@ -44,7 +51,13 @@ function App() {
 
   return (
       <div>
+        <h1>xd</h1>
         <List/>
+        {users.map(user => (
+                <div style={{borderBottom: '1px solid black'}}>
+                    <div>Nazwa: {user.name}</div>
+                </div>
+            ))}
       </div>
   )
 }
