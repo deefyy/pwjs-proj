@@ -1,10 +1,12 @@
-import './App.css'
-import List from './components/List.tsx'
+import styles from './App.module.css';
+import List from './components/List.tsx';
 import { collection, getDocs, addDoc} from "firebase/firestore";
-import { db } from './firebase-config.ts'
+import { ref, getDownloadURL } from "firebase/storage";
+import { db, storage } from './firebase-config.ts';
 import { useEffect, useState } from "react";
 
 interface User {
+  id: string;
   name: string;
   surname: string;
   date: string;
@@ -13,11 +15,11 @@ interface User {
 
 function App() {
 
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState<User[]>([]);
   const [name, setName] = useState('')
   const [surname, setSurname] = useState('')
   const [date, setDate] = useState('')
-  const [avatar, setAvatar] = useState('')
+  const [imageUrl, setImageUrl] = useState('');
 
   async function getUsers() {
 
@@ -27,37 +29,51 @@ function App() {
     querySnapshot.forEach((doc) => {
       data.push({
         id: doc.id,
-        ...doc.data()
+        ...(doc.data() as Omit<User, 'id'>)
       })
     });
     setUsers(data)
+    
   }
 
-  async function addUsers(e) {
+  async function addUsers(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const docRef = await addDoc(collection(db, "users"), {
       name,
       surname,
       date,
-      avatar
     });
 
     getUsers()
   }
 
+  const fetchImageUrl = async () => {
+    const imageRef = ref(storage, 'noavatar.jpg');
+    try {
+        const imageUrl = await getDownloadURL(imageRef);
+        setImageUrl(imageUrl);
+    } catch (error) {
+        console.error('Failed to fetch image:', error);
+        setImageUrl(''); // Set image URL to empty if there's an error
+    }
+  };
+
   useEffect(() => {
     getUsers()
+    fetchImageUrl();
   }, [])
 
   return (
-      <div>
-        <h1>xd</h1>
+      <div className={styles.app}>
         <List/>
         {users.map(user => (
-                <div style={{borderBottom: '1px solid black'}}>
-                    <div>Nazwa: {user.name}</div>
-                </div>
-            ))}
+          <div className={styles.list}>
+            <div className={styles.element}>
+              <img src={imageUrl} alt="No Avatar" style={{ width: '50px', height: '50px' }}/>
+              <div>{user.name}<br></br>{user.surname}</div>
+            </div>
+          </div>
+        ))}
       </div>
   )
 }
