@@ -1,6 +1,6 @@
 import styles from './App.module.css';
 import List from './components/List.tsx';
-import { collection, getDocs, addDoc} from "firebase/firestore";
+import { collection, getDocs, addDoc, Timestamp} from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import { db, storage } from './firebase-config.ts';
 import { useEffect, useState } from "react";
@@ -9,7 +9,7 @@ interface User {
   id: string;
   name: string;
   surname: string;
-  date: string;
+  date: Timestamp; 
   avatar: string;
 }
 
@@ -70,7 +70,7 @@ function App() {
           <div className={styles.list}>
             <div className={styles.element}>
               <img src={imageUrl} alt="No Avatar" style={{ width: '50px', height: '50px' }}/>
-              <div>{user.name}<br></br>{user.surname}</div>
+              <div>{user.name}<br></br>{user.surname} {user.date.toDate().toLocaleDateString('en-GB', { year: 'numeric', month: 'numeric', day: 'numeric' })}</div>
             </div>
           </div>
         ))}
