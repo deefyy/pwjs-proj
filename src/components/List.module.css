@@ -3,8 +3,13 @@ body {
 }
 
 .list {
+    display: block;
 }
 
 .element {
-
+    background-color: #171515;
+    display: flex;
+    width: 640px;
+    height: 80px;
+    align-items: center;
 }
