@@ -66,17 +66,27 @@ function List() {
 
     return (
         <div className={styles.list}>
-        {users.map(user => (
-          <div className={styles.list}>
-            <div className={styles.element}>
-              <img src={imageUrl} alt="No Avatar" style={{ width: '50px', height: '50px' }}/>
-              <div>{user.name}<br></br>{user.surname}</div>
-              <div>{user.date.toDate().toLocaleDateString('en-GB', { year: 'numeric', month: 'numeric', day: 'numeric' })}</div>
+          {users.map((user, index) => (
+            <div className={styles.element} key={index}>
+              <img src={imageUrl} alt="No Avatar" className={styles.avatar}/>
+              <div className={styles.details}>
+                <div className={styles.name}>{user.name}<br/>{user.surname}</div>
+                <div className={styles.date}>
+                  {new Date(user.date.seconds * 1000).toLocaleDateString('en-GB', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit'
+                  })}
+                </div>
+              </div>
+              <div className={styles.buttons}>
+                <button className={`${styles.button} ${styles.editButton}`}>Edytuj</button>
+                <button className={`${styles.button} ${styles.deleteButton}`}>Usun</button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
         </div>
-    )
+      );
 }
 
 export default List
