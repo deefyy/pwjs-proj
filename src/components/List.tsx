@@ -1,6 +1,6 @@
 import styles from './List.module.css'
 import '../App.tsx'
-import { collection, getDocs, addDoc, Timestamp} from "firebase/firestore";
+import { collection, getDocs, addDoc, deleteDoc, Timestamp} from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import { db, storage } from '../firebase-config.ts';
 
@@ -47,6 +47,13 @@ function List() {
   
       getUsers()
     }
+
+    async function deleteUsers(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        const docRef = await await deleteDoc(doc(db, "users", _id));
+    
+        getUsers()
+      }
   
     const fetchImageUrl = async () => {
       const imageRef = ref(storage, 'noavatar.jpg');
