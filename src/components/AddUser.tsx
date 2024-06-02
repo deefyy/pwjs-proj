@@ -1,4 +1,3 @@
-// src/components/AddUser.tsx
 import { useState } from 'react';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -38,7 +37,7 @@ function AddUser() {
         <input type="text" value={surname} onChange={(e) => setSurname(e.target.value)} placeholder="Surname" required />
         <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
         <input type="file" onChange={(e) => setAvatar(e.target.files ? e.target.files[0] : null)} />
-        <button type="submit">Add User</button>
+        <button type="submit">Add</button>
       </form>
     </div>
   );

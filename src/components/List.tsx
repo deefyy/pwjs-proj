@@ -17,17 +17,19 @@ interface User {
 
 function List() {
   const [users, setUsers] = useState<User[]>([]);
-  const [imageUrl, setImageUrl] = useState('');
 
   async function getUsers() {
     const querySnapshot = await getDocs(collection(db, "users"));
     const data: User[] = [];
-    querySnapshot.forEach((doc) => {
+    for (const doc of querySnapshot.docs) {
+      const userData = doc.data() as Omit<User, 'id'>;
+      const avatarUrl = userData.avatar ? await getDownloadURL(ref(storage, userData.avatar)) : await getDownloadURL(ref(storage, 'noavatar.jpg'));
       data.push({
         id: doc.id,
-        ...(doc.data() as Omit<User, 'id'>)
+        ...userData,
+        avatar: avatarUrl,
       });
-    });
+    }
     setUsers(data);
   }
 
@@ -36,20 +38,8 @@ function List() {
     getUsers();
   }
 
-  const fetchImageUrl = async () => {
-    const imageRef = ref(storage, 'noavatar.jpg');
-    try {
-      const imageUrl = await getDownloadURL(imageRef);
-      setImageUrl(imageUrl);
-    } catch (error) {
-      console.error('Failed to fetch image:', error);
-      setImageUrl(''); // Set image URL to empty if there's an error
-    }
-  };
-
   useEffect(() => {
     getUsers();
-    fetchImageUrl();
   }, []);
 
   return (
@@ -60,7 +50,7 @@ function List() {
       </div>
       {users.map((user, index) => (
         <div className={styles.element} key={index}>
-          <img src={imageUrl} alt="No Avatar" className={styles.avatar} />
+          <img src={user.avatar} alt="Avatar" className={styles.avatar} />
           <div className={styles.details}>
             <div className={styles.name}>{user.name}<br />{user.surname}</div>
             <div className={styles.date}>
