@@ -1,78 +1,92 @@
-body {
-    background: #262525;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
+/* src/components/List.module.css */
 
 .list {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .header {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.element {
-    background-color: #171515;
-    display: flex;
-    width: 640px;
-    height: 86px;
-    align-items: center;
-    padding: 10px;
     justify-content: space-between;
-    border-radius: 6px;
-    margin-bottom: -6px;
-}
-
-.avatar {
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .addButton {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .addButton:hover {
+    background-color: #218838;
+  }
+  
+  .element {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+  }
+  
+  .avatar {
     width: 50px;
     height: 50px;
+    border-radius: 50%;
     margin-right: 10px;
-    border-radius: 3px;
-}
-
-.details {
-    flex-grow: 4;
-    flex-wrap: wrap;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-}
-
-.name {
-    font-size: 16px;
-    width: 200px;
-    display: inline;
-}
-
-.date {
-    font-size: 16px;
-    align-self: center;
-}
-
-.buttons {
+  }
+  
+  .details {
+    flex: 1;
+  }
+  
+  .name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .date {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .buttons {
     display: flex;
     gap: 10px;
-}
-
-.button {
+  }
+  
+  .button {
     padding: 5px 10px;
-    border-radius: 4px;
+    font-size: 14px;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 16px;
-    width: 85px;
-    height: 33px;
-}
-
-.editButton {
-    background-color: #262525;
+  }
+  
+  .editButton {
+    background-color: #ffc107;
     color: white;
-}
-
-.deleteButton {
-    background-color: #a51414;
+  }
+  
+  .editButton:hover {
+    background-color: #e0a800;
+  }
+  
+  .deleteButton {
+    background-color: #dc3545;
     color: white;
-}
+  }
+  
+  .deleteButton:hover {
+    background-color: #c82333;
+  }
+  
