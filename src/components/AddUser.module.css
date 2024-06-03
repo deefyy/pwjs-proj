@@ -3,13 +3,14 @@
   max-width: 400px;
   margin: 50px auto;
   padding: 20px;
-  background-color: #2a2a2a; /* Ciemniejsze tło dla formularza */
+  background-color: #262525; /* Ciemniejsze tło dla formularza */
   border-radius: 10px;
 }
 
 h2 {
   text-align: center;
   margin-bottom: 20px;
+  color: white;
 }
 
 form {
